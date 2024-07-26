@@ -27,7 +27,7 @@ class NotificationScreen extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 24.0),
         itemBuilder: (BuildContext context, int index) {
           final notification = notifications[index];
-          return GestureDetector(
+          return InkWell(
             onTap: () {
               context.pushNamed(
                 NotificationDetailScreen.routeName,
