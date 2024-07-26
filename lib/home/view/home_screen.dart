@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ground_b/manufacturing/view/manufacturing_screen.dart';
+import 'package:ground_b/product/view/product_screen.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../common/const/colors.dart';
@@ -27,7 +29,7 @@ class HomeScreen extends ConsumerWidget {
           padding: const EdgeInsets.only(left: 16.0),
           child: Image.asset(ImagePath.logo),
         ),
-        leadingWidth: 80,
+        leadingWidth: 110,
         action: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -49,20 +51,71 @@ class HomeScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Image.asset(ImagePath.homeBanner),
-            const SizedBox(height: 40.0),
-            const SizedBox(height: 40.0),
-            const SizedBox(height: 40.0),
-            const Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Text(
-                '최근 본 상품',
-                style: MyTextStyle.bodyTitleMedium,
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+              child: Row(
+                children: [
+                  _renderRouterButton(
+                    title: "생산 의뢰",
+                    iconData: PhosphorIcons.handshake(),
+                    onTap: () {
+                      context.goNamed(ManufacturingScreen.routeName);
+                    },
+                  ),
+                  const SizedBox(width: 8.0),
+                  _renderRouterButton(
+                    title: "리셀 마켓",
+                    iconData: PhosphorIcons.storefront(),
+                    onTap: () {
+                      context.goNamed(ProductScreen.routeName);
+                    },
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8.0),
             const SizedBox(height: 40.0),
             const _Footer(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _renderRouterButton({
+    required String title,
+    required IconData iconData,
+    required Function() onTap,
+  }) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1.0,
+              color: MyColor.middleGrey,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PhosphorIcon(
+                  iconData,
+                  size: 30.0,
+                  color: MyColor.primary,
+                ),
+                const SizedBox(width: 8.0),
+                Text(
+                  title,
+                  style: MyTextStyle.bodyTitleMedium,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
