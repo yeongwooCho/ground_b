@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ground_b/manufacturing/view/manufacturing_list_screen.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_screen.dart';
 
 import '../../home/view/home_screen.dart';
@@ -57,6 +58,23 @@ List<RouteBase> get routes => [
                 path: "/manufacturing",
                 name: ManufacturingScreen.routeName,
                 builder: (context, state) => ManufacturingScreen(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: "list",
+                    name: ManufacturingListScreen.routeName,
+                    builder: (context, state) => ManufacturingListScreen(),
+                  ),
+                  // GoRoute(
+                  //   parentNavigatorKey: _rootNavigatorKey,
+                  //   path: ":id",
+                  //   name: ManufacturingDetailScreen.routeName,
+                  //   builder: (context, state) {
+                  //     final String id = state.pathParameters["id"]!;
+                  //     return ManufacturingDetailScreen(id: id);
+                  //   },
+                  // ),
+                ],
               ),
             ],
           ),
