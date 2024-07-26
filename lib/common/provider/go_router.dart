@@ -4,6 +4,7 @@ import 'package:ground_b/manufacturing/view/manufacturing_list_screen.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_screen.dart';
 
 import '../../home/view/home_screen.dart';
+import '../../manufacturing/view/manufacturing_detail_screen.dart';
 import '../../notification/view/notification_detail_screen.dart';
 import '../../notification/view/notification_screen.dart';
 import '../../product/view/product_screen.dart';
@@ -65,15 +66,15 @@ List<RouteBase> get routes => [
                     name: ManufacturingListScreen.routeName,
                     builder: (context, state) => ManufacturingListScreen(),
                   ),
-                  // GoRoute(
-                  //   parentNavigatorKey: _rootNavigatorKey,
-                  //   path: ":id",
-                  //   name: ManufacturingDetailScreen.routeName,
-                  //   builder: (context, state) {
-                  //     final String id = state.pathParameters["id"]!;
-                  //     return ManufacturingDetailScreen(id: id);
-                  //   },
-                  // ),
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: ":id",
+                    name: ManufacturingDetailScreen.routeName,
+                    builder: (context, state) {
+                      final String id = state.pathParameters["id"]!;
+                      return ManufacturingDetailScreen(id: id);
+                    },
+                  ),
                 ],
               ),
             ],

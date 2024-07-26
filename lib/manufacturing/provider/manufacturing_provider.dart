@@ -55,8 +55,6 @@ class ManufacturingStateNotifier
         referenceImageUrls: [
           '${ImagePath.manufacturingDirectory}0.png',
           '${ImagePath.manufacturingDirectory}0.png',
-          '${ImagePath.manufacturingDirectory}0.png',
-          '${ImagePath.manufacturingDirectory}0.png',
         ],
         categoryStatus: ManufacturingCategoryStatus.clothing,
       ),

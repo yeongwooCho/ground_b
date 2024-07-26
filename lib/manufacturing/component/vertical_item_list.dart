@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ground_b/manufacturing/component/manufacturing_card.dart';
 import 'package:ground_b/manufacturing/model/manufacturing_model.dart';
+import 'package:ground_b/manufacturing/view/manufacturing_detail_screen.dart';
 
 import '../../common/layout/default_layout.dart';
 
@@ -24,10 +26,10 @@ class VerticalItemList extends StatelessWidget {
           final manufacture = manufactures[index];
           return GestureDetector(
             onTap: () {
-              // context.pushNamed(
-              //   PersonalTrainingDetailScreen.routeName,
-              //   pathParameters: {"id": pt.id},
-              // );
+              context.pushNamed(
+                ManufacturingDetailScreen.routeName,
+                pathParameters: {"id": manufacture.id},
+              );
             },
             child: ManufacturingCard.fromModel(model: manufacture),
           );
