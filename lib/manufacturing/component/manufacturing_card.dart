@@ -46,6 +46,7 @@ class ManufacturingCard extends StatelessWidget {
       tags: model.tags,
       referenceImageUrls: model.referenceImageUrls,
       categoryStatus: model.categoryStatus,
+      isDetail: isDetail,
     );
   }
 
@@ -73,22 +74,15 @@ class ManufacturingCard extends StatelessWidget {
           color: MyColor.white,
           child: Column(
             children: [
-              // Hero(
-              //   tag: ObjectKey(heroKey),
-              //   child: Image.asset(
-              //     mainImageUrl,
-              //     fit: BoxFit.fill,
-              //     height: 200.0,
-              //     width: isDetail ? double.infinity : cardWidth,
-              //     // height: 200.0,
-              //   ),
-              // ),
-              Image.asset(
-                mainImageUrl,
-                fit: BoxFit.fill,
-                height: 180.0,
-                width: isDetail ? double.infinity : cardWidth,
-                // height: 200.0,
+              Hero(
+                tag: ObjectKey(heroKey),
+                child: Image.asset(
+                  mainImageUrl,
+                  fit: BoxFit.fill,
+                  height: 200.0,
+                  width: isDetail ? double.infinity : cardWidth,
+                  // height: 200.0,
+                ),
               ),
               SizedBox(
                 width: isDetail ? double.infinity : cardWidth,
