@@ -18,7 +18,7 @@ class ManufacturingListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<ManufacturingModel> manufactures =
-        ref.watch(manufacturingProvider);
+        ref.watch(manufacturingRandomProvider);
     final categories = ref.watch(manufacturingCategoriesProvider);
     final selectedCategory = ref.watch(manufacturingCategorySelectedProvider);
 

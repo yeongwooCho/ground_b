@@ -1,8 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ground_b/manufacturing/model/enum/manufacturing_category_status.dart';
+import 'package:ground_b/manufacturing/provider/category_provider.dart';
 
 import '../../common/const/image_path.dart';
+import '../../common/utils/data_utils.dart';
 import '../model/manufacturing_model.dart';
+
+final manufacturingRandomProvider = Provider<List<ManufacturingModel>>((ref) {
+  final manufactures = ref.watch(manufacturingProvider);
+  final selectedCategory = ref.watch(manufacturingCategorySelectedProvider);
+
+  final randomManufactures =
+      DataUtils.getRandomShuffledList<ManufacturingModel>(manufactures);
+  return randomManufactures;
+});
 
 final manufacturingDetailProvider =
     Provider.family<ManufacturingModel, String>((ref, id) {
@@ -39,7 +50,7 @@ class ManufacturingStateNotifier
         title: manufacturingData.keys.first,
         description: manufacturingData['대전 패션 공장']!,
         mainImageUrl: '${ImagePath.manufacturingDirectory}0.png',
-        numberOfProgress: 143,
+        numberOfProgress: 143 + index,
         tags: ["배송무료", "여름맛집"],
         referenceImageUrls: [
           '${ImagePath.manufacturingDirectory}0.png',
