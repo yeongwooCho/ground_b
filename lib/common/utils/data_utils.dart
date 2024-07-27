@@ -50,6 +50,19 @@ class DataUtils {
     return randomObj.nextInt(dividerNumber);
   }
 
+  static List<int> getRandomTwoInt({
+    required int dividerNumber,
+  }) {
+    final randomObj = Random();
+    final firstNumber = randomObj.nextInt(dividerNumber);
+    int secondNumber = randomObj.nextInt(dividerNumber);
+
+    while (firstNumber == secondNumber) {
+      secondNumber = randomObj.nextInt(dividerNumber);
+    }
+    return [firstNumber, secondNumber];
+  }
+
   static double getRandomDouble({
     required double min,
     required double range,
