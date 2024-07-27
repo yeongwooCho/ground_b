@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ground_b/common/component/horizontal_page_view.dart';
 import 'package:ground_b/manufacturing/component/manufacturing_card.dart';
 import 'package:ground_b/manufacturing/provider/manufacturing_provider.dart';
+import 'package:ground_b/manufacturing/view/manufacturing_detail_screen.dart';
 import 'package:ground_b/user/model/user_model.dart';
 import 'package:ground_b/user/provider/user_provider.dart';
 
@@ -81,10 +83,18 @@ class ManufacturingScreen extends ConsumerWidget {
               itemBuilder: (BuildContext context, int index) {
                 final manufacture = manufactures[index];
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0, vertical: 8.0),
-                  child: ManufacturingCard.fromModel(model: manufacture),
+                return InkWell(
+                  onTap: () {
+                    context.pushNamed(
+                      ManufacturingDetailScreen.routeName,
+                      pathParameters: {"id": manufacture.id},
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0, vertical: 8.0),
+                    child: ManufacturingCard.fromModel(model: manufacture),
+                  ),
                 );
               },
             ),
