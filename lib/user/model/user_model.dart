@@ -1,3 +1,4 @@
+import '../../manufacturing/model/manufacturing_request_model.dart';
 import 'address_model.dart';
 
 abstract class UserModelBase {}
@@ -23,6 +24,7 @@ class UserModel extends UserModelBase {
   final String profileImage;
   final AddressModel address;
   final List<String> recentlyViewedItems;
+  final List<ManufacturingRequestModel> manufacturingRequests;
 
   UserModel({
     required this.id,
@@ -35,6 +37,7 @@ class UserModel extends UserModelBase {
     required this.profileImage,
     required this.address,
     required this.recentlyViewedItems,
+    required this.manufacturingRequests,
   });
 
   UserModel copyWith({
@@ -48,6 +51,7 @@ class UserModel extends UserModelBase {
     String? profileImage,
     AddressModel? address,
     List<String>? recentlyViewedItems,
+    List<ManufacturingRequestModel>? manufacturingRequests,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -60,6 +64,7 @@ class UserModel extends UserModelBase {
       profileImage: profileImage ?? this.profileImage,
       address: address ?? this.address,
       recentlyViewedItems: recentlyViewedItems ?? this.recentlyViewedItems,
+      manufacturingRequests: manufacturingRequests ?? this.manufacturingRequests,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_list_screen.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_request_screen.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_screen.dart';
+import 'package:ground_b/manufacturing/view/my_request_list_screen.dart';
 
 import '../../home/view/home_screen.dart';
 import '../../manufacturing/view/manufacturing_detail_screen.dart';
@@ -62,6 +63,12 @@ List<RouteBase> get routes => [
                 name: ManufacturingScreen.routeName,
                 builder: (context, state) => ManufacturingScreen(),
                 routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: "my_request_list",
+                    name: MyRequestListScreen.routeName,
+                    builder: (context, state) => MyRequestListScreen(),
+                  ),
                   GoRoute(
                     parentNavigatorKey: _rootNavigatorKey,
                     path: "list",
