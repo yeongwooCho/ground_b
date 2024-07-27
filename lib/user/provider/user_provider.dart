@@ -1,15 +1,25 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ground_b/common/utils/data_utils.dart';
+import 'package:ground_b/manufacturing/model/enum/main_material_status.dart';
+import 'package:ground_b/manufacturing/model/enum/manufacturing_category_status.dart';
+import 'package:ground_b/manufacturing/model/manufacturing_request_model.dart';
+import 'package:ground_b/manufacturing/provider/manufacturing_provider.dart';
 
 import '../../common/const/data.dart';
 import '../model/user_model.dart';
 
 final userProvider = StateNotifierProvider<UserStateNotifier, UserModelBase>(
-  (ref) => UserStateNotifier(),
+  (ref) => UserStateNotifier(ref: ref),
 );
 
 class UserStateNotifier extends StateNotifier<UserModelBase> {
-  UserStateNotifier() : super(UserModelLoading()) {
-    initItems();
+  final Ref ref;
+
+  UserStateNotifier({
+    required this.ref,
+  }) : super(UserModelLoading()) {
+    initItems(ref: ref);
   }
 
   void updateInfo({
@@ -42,7 +52,24 @@ class UserStateNotifier extends StateNotifier<UserModelBase> {
     }
   }
 
-  void initItems() {
-    state = defaultUserModel;
+  void initItems({required Ref ref}) {
+    final manufactures =
+        ref.watch(manufacturingRandomByCurrentSituationProvider);
+
+    state = defaultUserModel.copyWith(manufacturingRequests: [
+      ...manufactures.mapIndexed(
+        (index, element) => ManufacturingRequestModel(
+          id: index.toString(),
+          manufacturing: element,
+          categoryStatus: ManufacturingCategoryStatus
+              .values[index % (ManufacturingCategoryStatus.values.length)],
+          majorMaterials: MainMaterialStatus
+              .values[index % (ManufacturingCategoryStatus.values.length)],
+          uploadFile: 'uploadFile',
+          requestedTerm: requestedTerms[index],
+          createdAt: DataUtils.getRandomDateTime(dividerAt: DateTime.now()),
+        ),
+      ),
+    ]);
   }
 }
