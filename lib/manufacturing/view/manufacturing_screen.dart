@@ -22,7 +22,7 @@ class ManufacturingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final manufactures = ref.watch(manufacturingProvider);
+    final manufactures = ref.watch(manufacturingRandomProvider);
     final user = ref.watch(userProvider) as UserModel;
 
     return DefaultLayout(
@@ -79,7 +79,7 @@ class ManufacturingScreen extends ConsumerWidget {
             ),
             HorizontalPageView(
               height: 350.0,
-              itemCount: manufactures.length,
+              itemCount: 8,
               itemBuilder: (BuildContext context, int index) {
                 final manufacture = manufactures[index];
 
