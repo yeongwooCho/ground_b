@@ -55,7 +55,7 @@ class ManufacturingScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 itemBuilder: (BuildContext context, int index) {
                   return Image.asset(
-                    "${ImagePath.manufacturingDirectory}0.png",
+                    "${ImagePath.referenceDirectory}$index.png",
                     width: 160.0,
                     height: 260.0,
                     fit: BoxFit.fill,

@@ -24,6 +24,8 @@ class ImagePath {
 
   // manufacturing
   static const manufacturingDirectory = "asset/img/manufacturing/";
+  static const referenceDirectory = "asset/img/reference/";
+
   // product
   static const productDirectory = "asset/img/product/";
 
