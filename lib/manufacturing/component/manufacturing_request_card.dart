@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ground_b/common/utils/data_utils.dart';
 import 'package:ground_b/manufacturing/model/manufacturing_model.dart';
 import 'package:ground_b/manufacturing/model/manufacturing_request_model.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../common/const/colors.dart';
 import '../../common/const/text_styles.dart';
@@ -16,6 +17,7 @@ class ManufacturingRequestCard extends StatelessWidget {
   final String uploadFile;
   final String requestedTerm;
   final DateTime createdAt;
+  final bool isSelected;
 
   const ManufacturingRequestCard({
     super.key,
@@ -26,10 +28,12 @@ class ManufacturingRequestCard extends StatelessWidget {
     required this.uploadFile,
     required this.requestedTerm,
     required this.createdAt,
+    this.isSelected = false,
   });
 
   factory ManufacturingRequestCard.fromModel({
     required ManufacturingRequestModel model,
+    bool isSelected = false,
   }) {
     return ManufacturingRequestCard(
       id: model.id,
@@ -39,6 +43,7 @@ class ManufacturingRequestCard extends StatelessWidget {
       uploadFile: model.uploadFile,
       requestedTerm: model.requestedTerm,
       createdAt: model.createdAt,
+      isSelected: isSelected,
     );
   }
 
@@ -74,7 +79,7 @@ class ManufacturingRequestCard extends StatelessWidget {
                 width: cardWidth,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 16.0,
+                    top: 4.0,
                     right: 16.0,
                     bottom: 16.0,
                     left: 16.0,
@@ -83,18 +88,38 @@ class ManufacturingRequestCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     // crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        manufacturing.title,
-                        style: MyTextStyle.bodyBold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            manufacturing.title,
+                            style: MyTextStyle.bodyBold,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: PhosphorIcon(
+                              PhosphorIcons.caretCircleDown(),
+                              size: 32.0,
+                              color: MyColor.text,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 8.0),
                       Text(
                         "요청일시: ${DataUtils.convertDateTimeToDateString(datetime: createdAt)}",
-                        style: MyTextStyle.bodyRegular.copyWith(
+                        style: MyTextStyle.descriptionMedium.copyWith(
                           color: MyColor.darkGrey,
                         ),
                       ),
-                      const SizedBox(height: 8.0),
+                      if (isSelected)
+                        _DescriptionContainer(
+                          manufacturing: manufacturing,
+                          categoryStatus: categoryStatus,
+                          majorMaterials: majorMaterials,
+                          uploadFile: uploadFile,
+                          requestedTerm: requestedTerm,
+                          createdAt: createdAt,
+                        ),
                     ],
                   ),
                 ),
@@ -102,6 +127,103 @@ class ManufacturingRequestCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DescriptionContainer extends StatelessWidget {
+  final ManufacturingModel manufacturing;
+  final ManufacturingCategoryStatus categoryStatus;
+  final MainMaterialStatus majorMaterials;
+  final String uploadFile;
+  final String requestedTerm;
+  final DateTime createdAt;
+
+  const _DescriptionContainer({
+    super.key,
+    required this.manufacturing,
+    required this.categoryStatus,
+    required this.majorMaterials,
+    required this.uploadFile,
+    required this.requestedTerm,
+    required this.createdAt,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Divider(height: 24.0),
+        _renderTitleAndImage(
+          title: '제작사\n레퍼런스 이미지',
+          imageUrl: manufacturing.referenceImageUrls.first,
+        ),
+        _renderTitleAndDescription(
+          title: '카테고리',
+          description: categoryStatus.label,
+        ),
+        _renderTitleAndDescription(
+          title: '주요소재',
+          description: majorMaterials.label,
+        ),
+        _renderTitleAndImage(
+          title: '요청\n레퍼런스 이미지',
+          imageUrl: manufacturing.referenceImageUrls.last,
+        ),
+        _renderTitleAndDescription(
+          title: '요청사항',
+          description: requestedTerm,
+        ),
+      ],
+    );
+  }
+
+  Widget _renderTitleAndDescription({
+    required String title,
+    required String description,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: MyTextStyle.bodyBold,
+          ),
+          Text(
+            description,
+            style: MyTextStyle.bodyRegular,
+            textAlign: TextAlign.end,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _renderTitleAndImage({
+    required String title,
+    required String imageUrl,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 140.0,
+            child: Text(
+              title,
+              style: MyTextStyle.bodyBold,
+            ),
+          ),
+          Expanded(
+            child: Image.asset(imageUrl),
+          ),
+        ],
       ),
     );
   }
