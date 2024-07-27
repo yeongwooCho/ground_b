@@ -1,12 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ground_b/manufacturing/model/enum/manufacturing_category_status.dart';
 import 'package:ground_b/manufacturing/provider/category_provider.dart';
+import 'package:ground_b/manufacturing/provider/current_situation_provider.dart';
 
 import '../../common/const/image_path.dart';
 import '../../common/utils/data_utils.dart';
 import '../model/manufacturing_model.dart';
 
-final manufacturingRandomProvider = Provider<List<ManufacturingModel>>((ref) {
+final manufacturingRandomByCurrentSituationProvider = Provider<List<ManufacturingModel>>((ref) {
+  final manufactures = ref.watch(manufacturingProvider);
+  final currentSituation = ref.watch(currentSituationSelectedProvider);
+
+  final randomManufactures =
+  DataUtils.getRandomShuffledList<ManufacturingModel>(manufactures);
+  return randomManufactures;
+});
+
+final manufacturingRandomByCategoryProvider = Provider<List<ManufacturingModel>>((ref) {
   final manufactures = ref.watch(manufacturingProvider);
   final selectedCategory = ref.watch(manufacturingCategorySelectedProvider);
 

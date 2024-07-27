@@ -22,7 +22,7 @@ class ManufacturingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final manufactures = ref.watch(manufacturingRandomProvider);
+    final manufactures = ref.watch(manufacturingRandomByCategoryProvider);
     final user = ref.watch(userProvider) as UserModel;
 
     return DefaultLayout(
