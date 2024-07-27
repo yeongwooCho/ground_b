@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ground_b/common/utils/data_utils.dart';
+import 'package:ground_b/manufacturing/provider/current_situation_provider.dart';
+import 'package:ground_b/manufacturing/view/my_request_list_screen.dart';
 import 'package:ground_b/user/provider/user_provider.dart';
 
 import '../../common/const/colors.dart';
@@ -12,6 +16,7 @@ class ManufacturingRequestContainer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserModel user = ref.watch(userProvider) as UserModel;
+    final currentSituations = ref.watch(currentSituationProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -26,22 +31,20 @@ class ManufacturingRequestContainer extends ConsumerWidget {
           Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: [
-              _RequestButton(
-                title: '생산요청',
-                count: 13,
-                onTap: () {
-                  // ref
-                  //     .read(productCategorySelectedProvider.notifier)
-                  //     .update((state) => ProductCategoryStatus.foreignSales);
-                  // context.pushNamed(ProductFullListScreen.routeName);
-                },
-              ),
-              _RequestButton(title: '요청확인', count: 13, onTap: () {}),
-              _RequestButton(title: '제작중', count: 13, onTap: () {}),
-              _RequestButton(title: '제작완료', count: 13, onTap: () {}),
-              _RequestButton(title: '확정', count: 13, onTap: () {}),
-            ],
+            children: currentSituations
+                .map(
+                  (e) => _RequestButton(
+                    title: e.label,
+                    count: DataUtils.getRandomInt(dividerNumber: 100),
+                    onTap: () {
+                      ref
+                          .read(currentSituationSelectedProvider.notifier)
+                          .state = e;
+                      context.goNamed(MyRequestListScreen.routeName);
+                    },
+                  ),
+                )
+                .toList(),
           )
         ],
       ),
