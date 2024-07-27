@@ -43,7 +43,7 @@ class ManufacturingScreen extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
                 '${user.name}님께 추천드려요',
-                style: MyTextStyle.bodyTitleMedium,
+                style: MyTextStyle.bodyTitleBold,
               ),
             ),
             const SizedBox(height: 8.0),
@@ -72,7 +72,7 @@ class ManufacturingScreen extends ConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
                 '최근 인기 제작사',
-                style: MyTextStyle.bodyTitleMedium,
+                style: MyTextStyle.bodyTitleBold,
               ),
             ),
             HorizontalPageView(

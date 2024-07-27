@@ -25,7 +25,7 @@ class ManufacturingRequestContainer extends ConsumerWidget {
         children: [
           Text(
             '${user.name}님의 생산요청 현황',
-            style: MyTextStyle.bodyTitleMedium,
+            style: MyTextStyle.bodyTitleBold,
           ),
           const SizedBox(height: 8.0),
           Wrap(

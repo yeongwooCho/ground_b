@@ -21,7 +21,7 @@ class CategoryContainer extends ConsumerWidget {
         children: [
           const Text(
             '카테고리',
-            style: MyTextStyle.bodyTitleMedium,
+            style: MyTextStyle.bodyTitleBold,
           ),
           const SizedBox(height: 8.0),
           Wrap(
