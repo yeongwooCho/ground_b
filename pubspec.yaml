@@ -96,6 +96,8 @@ flutter:
     - asset/img/payment/
     - asset/img/manufacturing/
     - asset/img/reference/
+    - asset/img/product/
+    - asset/img/product/0/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -109,6 +111,24 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
+  fonts:
+    - family: Pretendard
+      fonts:
+        - asset: asset/fonts/Pretendard-Thin.otf
+          weight: 100
+        - asset: asset/fonts/Pretendard-Light.otf
+          weight: 300
+        - asset: asset/fonts/Pretendard-Regular.otf
+          weight: 400
+        - asset: asset/fonts/Pretendard-Medium.otf
+          weight: 500
+        - asset: asset/fonts/Pretendard-SemiBold.otf
+          weight: 600
+        - asset: asset/fonts/Pretendard-Bold.otf
+          weight: 700
+        - asset: asset/fonts/Pretendard-Black.otf
+          weight: 900
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
