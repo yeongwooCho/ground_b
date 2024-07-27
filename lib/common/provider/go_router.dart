@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_list_screen.dart';
+import 'package:ground_b/manufacturing/view/manufacturing_request_screen.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_screen.dart';
 
 import '../../home/view/home_screen.dart';
 import '../../manufacturing/view/manufacturing_detail_screen.dart';
+import '../../manufacturing/view/request_completion_screen.dart';
 import '../../notification/view/notification_detail_screen.dart';
 import '../../notification/view/notification_screen.dart';
 import '../../product/view/product_screen.dart';
@@ -74,6 +76,26 @@ List<RouteBase> get routes => [
                       final String id = state.pathParameters["id"]!;
                       return ManufacturingDetailScreen(id: id);
                     },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: "request",
+                        name: ManufacturingRequestScreen.routeName,
+                        builder: (context, state) {
+                          final String id = state.pathParameters["id"]!;
+                          return ManufacturingRequestScreen(id: id);
+                        },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: _rootNavigatorKey,
+                            path: "completion",
+                            name: RequestCompletionScreen.routeName,
+                            builder: (context, state) => RequestCompletionScreen(),
+                          ),
+
+                        ]
+                      )
+                    ],
                   ),
                 ],
               ),

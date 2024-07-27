@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ground_b/common/layout/default_bottom_button.dart';
 import 'package:ground_b/manufacturing/component/manufacturing_card.dart';
 import 'package:ground_b/manufacturing/component/review_container.dart';
 import 'package:ground_b/manufacturing/model/review_model.dart';
+import 'package:ground_b/manufacturing/view/manufacturing_request_screen.dart';
 
 import '../../common/component/divider_container.dart';
 import '../../common/const/text_styles.dart';
@@ -29,7 +31,15 @@ class ManufacturingDetailScreen extends ConsumerWidget {
 
     return DefaultLayout(
       appbar: DefaultAppBar(title: manufacture.title),
-      bottomNavigationBar: DefaultBottomButton(title: '생산요청', onPress: () {}),
+      bottomNavigationBar: DefaultBottomButton(
+        title: '생산요청',
+        onPress: () {
+          context.goNamed(
+            ManufacturingRequestScreen.routeName,
+            pathParameters: {'id': id},
+          );
+        },
+      ),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
