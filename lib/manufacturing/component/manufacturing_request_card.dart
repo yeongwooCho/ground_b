@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ground_b/common/utils/data_utils.dart';
 import 'package:ground_b/manufacturing/model/manufacturing_model.dart';
@@ -189,14 +190,19 @@ class _DescriptionContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: MyTextStyle.bodyBold,
+          SizedBox(
+            width: 140.0,
+            child: Text(
+              title,
+              style: MyTextStyle.bodyBold,
+            ),
           ),
-          Text(
-            description,
-            style: MyTextStyle.bodyRegular,
-            textAlign: TextAlign.end,
+          Expanded(
+            child: Text(
+              description,
+              style: MyTextStyle.bodyRegular,
+              textAlign: TextAlign.start,
+            ),
           ),
         ],
       ),
