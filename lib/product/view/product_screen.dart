@@ -9,29 +9,24 @@ import '../../common/const/text_styles.dart';
 import '../../common/layout/default_app_bar.dart';
 import '../../common/layout/default_layout.dart';
 import '../component/vertical_item_grid.dart';
+import '../provider/is_sale_provider.dart';
 import '../provider/product_category_provider.dart';
 import '../provider/product_provider.dart';
 
-class ProductScreen extends ConsumerStatefulWidget {
+class ProductScreen extends ConsumerWidget {
   static String get routeName => "product";
 
   const ProductScreen({super.key});
 
   @override
-  ConsumerState<ProductScreen> createState() => _ProductScreenState();
-}
-
-class _ProductScreenState extends ConsumerState<ProductScreen> {
-  bool isSales = true;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // final products = ref.watch(productProvider);
     final categories = ref.watch(productCategoriesProvider);
     final selectedCategory = ref.watch(productCategorySelectedProvider);
     final filters = ref.watch(productFiltersProvider);
     final selectedFilter = ref.watch(productFilterSelectedProvider);
     final randomProducts = ref.watch(productRandomProvider);
+    final isSales = ref.watch(isSaleProvider);
 
     return DefaultLayout(
       appbar: DefaultAppBar(
@@ -46,9 +41,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
               values: const [true, false],
               height: 48.0,
               onChanged: (bool value) {
-                setState(() {
-                  isSales = value;
-                });
+                ref.read(isSaleProvider.notifier).state = value;
               },
               iconList: [
                 Text(

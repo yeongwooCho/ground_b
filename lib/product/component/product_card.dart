@@ -89,10 +89,11 @@ class ProductCard extends StatelessWidget {
             textAlign: TextAlign.end,
           ),
           const SizedBox(height: 4.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+          isSale
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                 children: [
                   PhosphorIcon(
                     PhosphorIcons.heart(PhosphorIconsStyle.fill),
@@ -113,7 +114,12 @@ class ProductCard extends StatelessWidget {
                 style: MyTextStyle.bodyBold,
               ),
             ],
-          ),
+                )
+              : Text(
+                  '${DataUtils.convertPriceToMoneyString(price: totalPrice)} 원',
+                  style: MyTextStyle.bodyBold,
+                  textAlign: TextAlign.end,
+                ),
         ],
       ),
     );

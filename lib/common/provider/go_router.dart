@@ -15,6 +15,7 @@ import '../../order/view/order_detail_screen.dart';
 import '../../order/view/order_list_screen.dart';
 import '../../product/view/my_product_list_screen.dart';
 import '../../product/view/product_detail_screen.dart';
+import '../../product/view/product_purchase_detail_screen.dart';
 import '../../product/view/product_screen.dart';
 import '../../user/view/certification_screen.dart';
 import '../../user/view/custom_sns_screen.dart';
@@ -120,6 +121,17 @@ List<RouteBase> get routes => [
                 name: ProductScreen.routeName,
                 builder: (context, state) => ProductScreen(),
                 routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'purchase:id',
+                    name: ProductPurchaseDetailScreen.routeName,
+                    builder: (context, state) {
+                      final productId =
+                      GoRouterState.of(context).pathParameters['id']!;
+
+                      return ProductPurchaseDetailScreen(id: productId);
+                    },
+                  ),
                   GoRoute(
                     parentNavigatorKey: _rootNavigatorKey,
                     path: ':id',
