@@ -30,6 +30,13 @@ class DataUtils {
     return numberFormat.format(price);
   }
 
+  static String convertToTotalMoney({
+    required int price,
+    required int sale,
+  }) {
+    return '${DataUtils.convertPriceToMoneyString(price: price * (100 - sale) ~/ 100)} 원';
+  }
+
   static DateTime getRandomDateTime({
     required DateTime dividerAt,
   }) {
