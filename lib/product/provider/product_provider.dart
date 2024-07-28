@@ -81,12 +81,10 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
         title: products.keys.toList()[index],
         price: products.values.toList()[index],
         sale: (DataUtils.getRandomInt(dividerNumber: 3) * 5) + 10,
-        mainImageUrl: getImageUrl(index: index),
-        detailImageUrls: [
-          'asset/img/product/0/0.png',
-          'asset/img/product/0/1.png',
-          'asset/img/product/0/2.png',
-        ],
+        mainImageUrl: '${getImageUrl(index: index)}${index % 8}.png',
+        detailImageUrls: [0, 1, 2]
+            .map((e) => '${getImageUrl(index: index)}${index % 8}-$e.png')
+            .toList(),
         isLike: false,
         likes: DataUtils.getRandomDouble(min: 243.0, range: 500).toInt(),
         createdAt: createdAt.subtract(Duration(
@@ -104,16 +102,16 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
 
     switch (index) {
       case < 8:
-        returnDirectory = ImagePath.productManDirectory;
+        return ImagePath.productManDirectory;
       case >= 8 && < 16:
-        returnDirectory = ImagePath.productWomanDirectory;
+        return ImagePath.productWomanDirectory;
       case >= 16 && < 24:
-        returnDirectory = ImagePath.productOuterDirectory;
+        return ImagePath.productOuterDirectory;
       case >= 24 && < 32:
-        returnDirectory = ImagePath.productMiscellaneousDirectory;
+        return ImagePath.productMiscellaneousDirectory;
+      default:
+        return ImagePath.productManDirectory;
     }
-
-    return '$returnDirectory${index % 8}.png';
   }
 
   ProductCategoryStatus getCategory({

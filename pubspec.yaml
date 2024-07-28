@@ -101,7 +101,6 @@ flutter:
     - asset/img/product/woman/
     - asset/img/product/outer/
     - asset/img/product/miscellaneous/
-    - asset/img/product/0/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
