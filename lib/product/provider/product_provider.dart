@@ -45,7 +45,11 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
   }) {
     state = state.map((element) {
       if (element.id == productId) {
-        return element.copyWith(isLike: isLike);
+        if (isLike) {
+          return element.copyWith(isLike: isLike, likes: element.likes + 1);
+        } else {
+          return element.copyWith(isLike: isLike, likes: element.likes - 1);
+        }
       } else {
         return element;
       }
