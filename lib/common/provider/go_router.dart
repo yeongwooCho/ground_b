@@ -7,7 +7,6 @@ import 'package:ground_b/manufacturing/view/my_request_list_screen.dart';
 
 import '../../home/view/home_screen.dart';
 import '../../manufacturing/view/manufacturing_detail_screen.dart';
-import '../../manufacturing/view/request_completion_screen.dart';
 import '../../notification/view/notification_detail_screen.dart';
 import '../../notification/view/notification_screen.dart';
 import '../../order/view/create_order_screen.dart';
@@ -98,15 +97,6 @@ List<RouteBase> get routes => [
                           final String id = state.pathParameters["id"]!;
                           return ManufacturingRequestScreen(id: id);
                         },
-                        routes: [
-                          GoRoute(
-                            parentNavigatorKey: _rootNavigatorKey,
-                            path: "completion",
-                            name: RequestCompletionScreen.routeName,
-                            builder: (context, state) => RequestCompletionScreen(),
-                          ),
-
-                        ]
                       )
                     ],
                   ),

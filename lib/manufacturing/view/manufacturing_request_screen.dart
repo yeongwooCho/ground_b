@@ -7,8 +7,8 @@ import 'package:ground_b/common/component/custom_text_form_field.dart';
 import 'package:ground_b/common/component/default_button.dart';
 import 'package:ground_b/common/const/colors.dart';
 import 'package:ground_b/common/const/text_styles.dart';
+import 'package:ground_b/common/view/completion_screen.dart';
 import 'package:ground_b/manufacturing/provider/category_provider.dart';
-import 'package:ground_b/manufacturing/view/request_completion_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../common/layout/default_app_bar.dart';
@@ -184,10 +184,10 @@ class _ManufacturingRequestScreenState
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
               child: PrimaryButton(
                 onPressed: () {
-                  context.goNamed(
-                    RequestCompletionScreen.routeName,
-                    pathParameters: {'id': manufacture.id},
-                  );
+                  context.goNamed(CompletionScreen.routeName, pathParameters: {
+                    'title':
+                        '제작 요청이\n완료되었습니다.:제작사 확인 후 고객님의\n연락처로 답변이 전달될 예정입니다!',
+                  });
                 },
                 child: const Text('요청하기'),
               ),
