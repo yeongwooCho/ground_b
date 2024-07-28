@@ -116,7 +116,7 @@ class ProductCard extends StatelessWidget {
             ],
                 )
               : Text(
-                  '${DataUtils.convertPriceToMoneyString(price: totalPrice)} 원',
+                  '${DataUtils.convertPriceToMoneyString(price: ((price * 0.7) ~/ 1000) * 1000)} 원',
                   style: MyTextStyle.bodyBold,
                   textAlign: TextAlign.end,
                 ),

@@ -6,6 +6,7 @@ import 'package:ground_b/product/provider/product_filter_provider.dart';
 import '../../common/const/data.dart';
 import '../../common/utils/data_utils.dart';
 import '../model/product_model.dart';
+import 'is_sale_provider.dart';
 import 'product_category_provider.dart';
 
 final productByCategoryProvider = Provider<List<ProductModel>>((ref) {
@@ -16,6 +17,8 @@ final productByCategoryProvider = Provider<List<ProductModel>>((ref) {
       .toList();
 
   final selectedFilter = ref.watch(productFilterSelectedProvider);
+  final isSale = ref.watch(isSaleProvider);
+
   final randomProducts =
       DataUtils.getRandomShuffledList<ProductModel>(categoryProducts);
   return randomProducts;
@@ -72,7 +75,7 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
         id: index.toString(),
         title: products.keys.toList()[index],
         price: products.values.toList()[index],
-        sale: index + 10,
+        sale: (DataUtils.getRandomInt(dividerNumber: 3) * 5) + 10,
         mainImageUrl: getImageUrl(index: index),
         detailImageUrls: [
           'asset/img/product/0/0.png',
