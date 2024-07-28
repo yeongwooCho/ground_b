@@ -63,7 +63,7 @@ class ManufacturingDetailScreen extends ConsumerWidget {
                   const SizedBox(height: 8.0),
                   Text(
                     manufacture.description,
-                    style: MyTextStyle.descriptionRegular,
+                    style: MyTextStyle.bodyRegular,
                   ),
                 ],
               ),
