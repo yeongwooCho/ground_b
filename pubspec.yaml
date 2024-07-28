@@ -114,19 +114,19 @@ flutter:
   fonts:
     - family: Pretendard
       fonts:
-        - asset: asset/fonts/Pretendard-Thin.otf
+        - asset: asset/font/Pretendard-Thin.otf
           weight: 100
-        - asset: asset/fonts/Pretendard-Light.otf
+        - asset: asset/font/Pretendard-Light.otf
           weight: 300
-        - asset: asset/fonts/Pretendard-Regular.otf
+        - asset: asset/font/Pretendard-Regular.otf
           weight: 400
-        - asset: asset/fonts/Pretendard-Medium.otf
+        - asset: asset/font/Pretendard-Medium.otf
           weight: 500
-        - asset: asset/fonts/Pretendard-SemiBold.otf
+        - asset: asset/font/Pretendard-SemiBold.otf
           weight: 600
-        - asset: asset/fonts/Pretendard-Bold.otf
+        - asset: asset/font/Pretendard-Bold.otf
           weight: 700
-        - asset: asset/fonts/Pretendard-Black.otf
+        - asset: asset/font/Pretendard-Black.otf
           weight: 900
 
   #   - family: Schyler
