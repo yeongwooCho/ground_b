@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ground_b/manufacturing/component/review_container.dart';
 import 'package:hidable/hidable.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -13,6 +12,8 @@ import '../../common/const/text_styles.dart';
 import '../../common/layout/default_app_bar.dart';
 import '../../common/layout/default_layout.dart';
 import '../../common/utils/data_utils.dart';
+import '../../manufacturing/component/review_container.dart';
+import '../../manufacturing/model/review_model.dart';
 import '../../order/view/create_order_screen.dart';
 import '../component/horizontal_item_list.dart';
 import '../model/product_model.dart';
@@ -53,55 +54,59 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       ),
       bottomNavigationBar: Hidable(
         controller: scrollController,
-        preferredWidgetSize: const Size.fromHeight(68),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(
-                    width: 1.0,
-                    color: MyColor.middleGrey,
+        preferredWidgetSize: const Size.fromHeight(100),
+        child: SafeArea(
+          bottom: true,
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(
+                      width: 1.0,
+                      color: MyColor.middleGrey,
+                    ),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      ref.read(productProvider.notifier).updateLike(
+                            productId: product.id,
+                            isLike: !product.isLike,
+                          );
+                    },
+                    icon: product.isLike
+                        ? PhosphorIcon(
+                            PhosphorIcons.heart(PhosphorIconsStyle.fill),
+                            color: MyColor.heart,
+                            size: 32.0,
+                          )
+                        : PhosphorIcon(
+                            PhosphorIcons.heart(),
+                            color: MyColor.middleGrey,
+                            size: 32.0,
+                          ),
                   ),
                 ),
-                child: IconButton(
-                  onPressed: () {
-                    ref.read(productProvider.notifier).updateLike(
-                          productId: product.id,
-                          isLike: !product.isLike,
-                        );
-                  },
-                  icon: product.isLike
-                      ? PhosphorIcon(
-                          PhosphorIcons.heart(PhosphorIconsStyle.fill),
-                          color: MyColor.heart,
-                          size: 32.0,
-                        )
-                      : PhosphorIcon(
-                          PhosphorIcons.heart(),
-                          color: MyColor.middleGrey,
-                          size: 32.0,
-                        ),
-                ),
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: PrimaryButton(
-                  onPressed: () {
-                    ref.read(cartProvider.notifier).removeAll();
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: PrimaryButton(
+                    onPressed: () {
+                      ref.read(cartProvider.notifier).removeAll();
 
-                    ref
-                        .read(cartProvider.notifier)
-                        .addProduct(product: product, amount: 1);
+                      ref
+                          .read(cartProvider.notifier)
+                          .addProduct(product: product, amount: 1);
 
-                    context.pushNamed(CreateOrderScreen.routeName);
-                  },
-                  child: const Text('구매하기'),
+                      context.pushNamed(CreateOrderScreen.routeName);
+                    },
+                    child: const Text('구매하기'),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -119,16 +124,39 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             ),
             renderProductInfo(product: product),
             const DividerContainer(),
+            renderDescriptionImages(detailImages: product.detailImageUrls),
             const SizedBox(height: 40.0),
             const DividerContainer(),
-            // ReviewContainer(title: 'title', reviews: []),
+            ReviewContainer(
+              title: '문의',
+              reviews: [
+                ReviewModel(
+                  id: '0',
+                  title: 'hour01',
+                  description: '맞춤형 제품 제작 가능이 가능한가요?',
+                  createdAt: DateTime(2024, 7, 13),
+                ),
+                ReviewModel(
+                  id: '1',
+                  title: 'thisis0811',
+                  description: '최소 주문 수량은 얼마인가요?',
+                  createdAt: DateTime(2024, 7, 2),
+                ),
+                ReviewModel(
+                  id: '2',
+                  title: 'pressbell0808',
+                  description: '상품 주문 후 생산 및 배송 소요 시간이 어떻게 되는지 여쭤봐도 될까요?',
+                  createdAt: DateTime(2024, 6, 30),
+                ),
+              ],
+            ),
             const DividerContainer(),
             const Padding(
               padding: EdgeInsets.only(
-                  left: 24.0, right: 24.0, top: 40.0, bottom: 8.0),
+                  left: 24.0, right: 24.0, top: 20.0, bottom: 8.0),
               child: Text(
                 '추천 상품',
-                style: MyTextStyle.bodyTitleMedium,
+                style: MyTextStyle.bodyTitleBold,
               ),
             ),
             HorizontalItemList(products: productPrefer),
@@ -153,16 +181,26 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           ),
           const SizedBox(height: 8.0),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                '${DataUtils.convertPriceToMoneyString(price: product.price)} 원',
+                '${product.sale}%',
+                style: MyTextStyle.bigTitleBold.copyWith(
+                  color: MyColor.heart,
+                ),
+              ),
+              const SizedBox(width: 12.0),
+              Text(
+                DataUtils.convertToTotalMoney(
+                    price: product.price, sale: product.sale),
                 style: MyTextStyle.bigTitleBold,
               ),
               const SizedBox(width: 12.0),
               Text(
-                '(구매가격 ${DataUtils.convertPriceToMoneyString(price: product.price)} 원)',
-                style: MyTextStyle.descriptionRegular.copyWith(
+                '${DataUtils.convertPriceToMoneyString(price: product.price)} 원',
+                style: MyTextStyle.bodyRegular.copyWith(
                   color: MyColor.darkGrey,
+                  decoration: TextDecoration.lineThrough,
                 ),
               ),
             ],
@@ -181,13 +219,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 children: [
                   PhosphorIcon(
                     PhosphorIcons.heart(PhosphorIconsStyle.fill),
-                    color: MyColor.darkGrey,
+                    color: MyColor.heart,
                   ),
                   const SizedBox(width: 4.0),
                   Text(
                     '${product.likes}',
                     style: MyTextStyle.minimumRegular.copyWith(
-                      color: MyColor.darkGrey,
+                      color: MyColor.heart,
                     ),
                   ),
                 ],
@@ -196,6 +234,37 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget renderDescriptionImages({
+    required List<String> detailImages,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 24.0, top: 20.0, bottom: 8.0),
+          child: Text(
+            '상품 정보',
+            style: MyTextStyle.bodyTitleBold,
+          ),
+        ),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: detailImages.length,
+          itemBuilder: (context, index) {
+            return Container(
+              color: MyColor.darkGrey,
+              child: Image.asset(
+                detailImages[index],
+                fit: BoxFit.cover,
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
