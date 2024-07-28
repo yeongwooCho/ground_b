@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ground_b/common/const/colors.dart';
 import 'package:ground_b/common/layout/default_bottom_button.dart';
 
 import '../../home/view/home_screen.dart';
+import '../const/colors.dart';
 import '../const/text_styles.dart';
 import '../layout/default_layout.dart';
 
@@ -11,12 +11,10 @@ class CompletionScreen extends StatelessWidget {
   static String get routeName => 'completion';
 
   final String title;
-  final String? description;
 
   const CompletionScreen({
     super.key,
     required this.title,
-    this.description,
   });
 
   @override
@@ -34,13 +32,13 @@ class CompletionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              title,
+              title.split(":").first,
               style: MyTextStyle.headTitle,
             ),
             const SizedBox(height: 20.0),
-            if (description != null)
+            if (title.split(":").length == 2)
               Text(
-                description!,
+                title.split(":")[1],
                 style: MyTextStyle.bodyMedium.copyWith(
                   color: MyColor.primary,
                 ),

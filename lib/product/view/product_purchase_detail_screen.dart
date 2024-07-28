@@ -63,8 +63,7 @@ class _ProductDetailScreenState
               context.goNamed(
                 CompletionScreen.routeName,
                 pathParameters: {
-                  'title': "희망 구매자에게\n판매요청을 보냈어요!",
-                  "description": "구매자가 확인 후 알림을 보낼 예정입니다.",
+                  'title': "희망 구매자에게\n판매요청을 보냈어요!:구매자가 확인 후 알림을 보낼 예정입니다."
                 },
               );
             },
