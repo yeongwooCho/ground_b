@@ -171,12 +171,16 @@ List<RouteBase> get routes => [
         builder: (context, state) => SplashScreen(),
       ),
       GoRoute(
-        path: '/completion/:title',
+        path: '/completion/:title/:description',
         name: CompletionScreen.routeName,
         builder: (context, state) {
           final String title = state.pathParameters['title']!;
+          final String? description = state.pathParameters['description'];
 
-          return CompletionScreen(title: title);
+          return CompletionScreen(
+            title: title,
+            description: description,
+          );
         },
       ),
       GoRoute(
