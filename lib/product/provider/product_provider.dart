@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ground_b/common/const/image_path.dart';
+import 'package:ground_b/product/model/enum/product_category_status.dart';
 import 'package:ground_b/product/provider/product_filter_provider.dart';
 
 import '../../common/const/data.dart';
@@ -7,13 +8,16 @@ import '../../common/utils/data_utils.dart';
 import '../model/product_model.dart';
 import 'product_category_provider.dart';
 
-final productRandomProvider = Provider<List<ProductModel>>((ref) {
+final productByCategoryProvider = Provider<List<ProductModel>>((ref) {
   final products = ref.watch(productProvider);
   final selectedCategory = ref.watch(productCategorySelectedProvider);
-  final selectedFilter = ref.watch(productFilterSelectedProvider);
+  final categoryProducts = products
+      .where((element) => element.categoryStatus == selectedCategory)
+      .toList();
 
+  final selectedFilter = ref.watch(productFilterSelectedProvider);
   final randomProducts =
-      DataUtils.getRandomShuffledList<ProductModel>(products);
+      DataUtils.getRandomShuffledList<ProductModel>(categoryProducts);
   return randomProducts;
 });
 
@@ -80,6 +84,7 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
         createdAt: createdAt.subtract(Duration(
           days: DataUtils.getRandomDouble(min: 1.0, range: 10).toInt(),
         )),
+        categoryStatus: getCategory(index: index),
       ),
     );
   }
@@ -101,5 +106,24 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
     }
 
     return '$returnDirectory${index % 8}.png';
+  }
+
+  ProductCategoryStatus getCategory({
+    required int index,
+  }) {
+    switch (index) {
+      case < 8:
+        return ProductCategoryStatus.man;
+      case >= 8 && < 16:
+        return ProductCategoryStatus.woman;
+
+      case >= 16 && < 24:
+        return ProductCategoryStatus.outer;
+
+      case >= 24 && < 32:
+        return ProductCategoryStatus.miscellaneous;
+      default:
+        return ProductCategoryStatus.man;
+    }
   }
 }

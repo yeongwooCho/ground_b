@@ -1,4 +1,5 @@
 import '../../user/model/user_model.dart';
+import 'enum/product_category_status.dart';
 
 class ProductModel {
   final String id;
@@ -10,6 +11,7 @@ class ProductModel {
   final bool isLike;
   final int likes;
   final DateTime createdAt;
+  final ProductCategoryStatus categoryStatus;
 
   ProductModel({
     required this.id,
@@ -21,6 +23,7 @@ class ProductModel {
     required this.isLike,
     required this.likes,
     required this.createdAt,
+    required this.categoryStatus,
   });
 
   ProductModel copyWith({
@@ -33,6 +36,7 @@ class ProductModel {
     bool? isLike,
     int? likes,
     DateTime? createdAt,
+    ProductCategoryStatus? categoryStatus,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -44,6 +48,7 @@ class ProductModel {
       isLike: isLike ?? this.isLike,
       likes: likes ?? this.likes,
       createdAt: createdAt ?? this.createdAt,
+      categoryStatus: categoryStatus ?? this.categoryStatus,
     );
   }
 }

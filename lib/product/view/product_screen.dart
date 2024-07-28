@@ -20,12 +20,11 @@ class ProductScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final products = ref.watch(productProvider);
     final categories = ref.watch(productCategoriesProvider);
     final selectedCategory = ref.watch(productCategorySelectedProvider);
     final filters = ref.watch(productFiltersProvider);
     final selectedFilter = ref.watch(productFilterSelectedProvider);
-    final randomProducts = ref.watch(productRandomProvider);
+    final products = ref.watch(productByCategoryProvider);
     final isSales = ref.watch(isSaleProvider);
 
     return DefaultLayout(
@@ -123,11 +122,11 @@ class ProductScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '총 ${randomProducts.length}건',
+                  '총 ${products.length}건',
                   style: MyTextStyle.bodyBold,
                 ),
                 SizedBox(
-                  width: 150.0,
+                  width: 168.0,
                   child: CustomSingleDropDown(
                     dropdownList: filters.map((e) => e.label).toList(),
                     hintText: '필터',
@@ -146,7 +145,7 @@ class ProductScreen extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: VerticalItemGrid(products: randomProducts),
+            child: VerticalItemGrid(products: products),
           ),
         ],
       ),
