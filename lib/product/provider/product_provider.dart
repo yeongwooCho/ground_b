@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ground_b/common/const/image_path.dart';
 import 'package:ground_b/product/provider/product_filter_provider.dart';
 
 import '../../common/const/data.dart';
@@ -64,11 +65,11 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
     return List.generate(
       products.length,
       (index) => ProductModel(
-        id: "0",
+        id: index.toString(),
         title: products.keys.toList()[index],
         price: products.values.toList()[index],
         sale: index + 10,
-        mainImageUrl: 'asset/img/product/0.png',
+        mainImageUrl: getImageUrl(index: index),
         detailImageUrls: [
           'asset/img/product/0/0.png',
           'asset/img/product/0/1.png',
@@ -81,5 +82,24 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
         )),
       ),
     );
+  }
+
+  String getImageUrl({
+    required int index,
+  }) {
+    late String returnDirectory;
+
+    switch (index) {
+      case < 8:
+        returnDirectory = ImagePath.productManDirectory;
+      case >= 8 && < 16:
+        returnDirectory = ImagePath.productWomanDirectory;
+      case >= 16 && < 24:
+        returnDirectory = ImagePath.productOuterDirectory;
+      case >= 24 && < 32:
+        returnDirectory = ImagePath.productMiscellaneousDirectory;
+    }
+
+    return '$returnDirectory${index % 8}.png';
   }
 }

@@ -27,6 +27,9 @@ class ImagePath {
   static const referenceDirectory = "asset/img/reference/";
 
   // product
-  static const productDirectory = "asset/img/product/";
+  static const productManDirectory = "asset/img/product/man/";
+  static const productWomanDirectory = "asset/img/product/woman/";
+  static const productOuterDirectory = "asset/img/product/outer/";
+  static const productMiscellaneousDirectory = "asset/img/product/miscellaneous/";
 
 }
