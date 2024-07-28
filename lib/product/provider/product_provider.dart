@@ -27,6 +27,11 @@ final productByCategoryProvider = Provider<List<ProductModel>>((ref) {
 final productPreferProvider = Provider<List<ProductModel>>((ref) {
   final products = ref.watch(productProvider);
 
+  // 카테고리, 필터, 판매구매 상태 변경 시 추천상품 변경
+  final selectedCategory = ref.watch(productCategorySelectedProvider);
+  final selectedFilter = ref.watch(productFilterSelectedProvider);
+  final isSale = ref.watch(isSaleProvider);
+
   final pairProducts = DataUtils.getRandomShuffledList<ProductModel>(products);
   return pairProducts.take(4).toList();
 });

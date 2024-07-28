@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ground_b/manufacturing/view/manufacturing_screen.dart';
+import 'package:ground_b/product/provider/product_provider.dart';
 import 'package:ground_b/product/view/product_screen.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../common/component/horizontal_page_view.dart';
 import '../../common/const/colors.dart';
 import '../../common/const/data.dart';
 import '../../common/const/image_path.dart';
 import '../../common/const/text_styles.dart';
 import '../../common/layout/default_app_bar.dart';
 import '../../common/layout/default_layout.dart';
+import '../../manufacturing/component/manufacturing_card.dart';
+import '../../manufacturing/provider/manufacturing_provider.dart';
+import '../../manufacturing/view/manufacturing_detail_screen.dart';
 import '../../notification/view/notification_screen.dart';
+import '../../product/component/horizontal_item_list.dart';
 
 class HomeScreen extends ConsumerWidget {
   static String get routeName => "home";
@@ -20,6 +26,8 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final productPrefer = ref.watch(productPreferProvider);
+    final manufactures = ref.watch(manufacturingRandomByCategoryProvider);
 
     return DefaultLayout(
       appbar: DefaultAppBar(
@@ -74,6 +82,44 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                '최근 인기 제작사',
+                style: MyTextStyle.bodyTitleBold,
+              ),
+            ),
+            HorizontalPageView(
+              height: 350.0,
+              itemCount: 8,
+              itemBuilder: (BuildContext context, int index) {
+                final manufacture = manufactures[index];
+
+                return InkWell(
+                  onTap: () {
+                    context.pushNamed(
+                      ManufacturingDetailScreen.routeName,
+                      pathParameters: {"id": manufacture.id},
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0, vertical: 8.0),
+                    child: ManufacturingCard.fromModel(model: manufacture),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 40.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                '그라운드비 추천 제품',
+                style: MyTextStyle.bodyTitleBold,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            HorizontalItemList(products: productPrefer),
             const SizedBox(height: 40.0),
             const _Footer(),
           ],
