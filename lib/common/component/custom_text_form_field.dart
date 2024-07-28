@@ -24,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool enabled;
   final VoidCallback? onEditingComplete;
   final FocusNode? focusNode;
+  final TextStyle? style;
 
   const CustomTextFormField({
     super.key,
@@ -45,6 +46,7 @@ class CustomTextFormField extends StatelessWidget {
     this.enabled = true,
     this.onEditingComplete,
     this.focusNode,
+    this.style,
   });
 
   @override
@@ -99,8 +101,9 @@ class CustomTextFormField extends StatelessWidget {
       ),
       cursorColor: MyColor.primary,
       cursorHeight: 24.0,
-      style: MyTextStyle.bodyRegular.copyWith(
-        color: enabled ? MyColor.text : MyColor.middleGrey,
+      style: style ??
+          MyTextStyle.bodyRegular.copyWith(
+            color: enabled ? MyColor.text : MyColor.middleGrey,
       ),
       maxLength: maxLength,
       maxLines: maxLines,
