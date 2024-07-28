@@ -8,7 +8,7 @@ import '../const/text_styles.dart';
 
 class CustomSingleDropDown extends StatelessWidget {
   final List<String> dropdownList;
-  final String defaultValue;
+  final String? defaultValue;
   final String hintText;
   final ValueChanged<String> onChanged;
   final double dropdownHeight;
@@ -16,7 +16,7 @@ class CustomSingleDropDown extends StatelessWidget {
   const CustomSingleDropDown({
     super.key,
     required this.dropdownList,
-    required this.defaultValue,
+    this.defaultValue,
     required this.hintText,
     required this.onChanged,
     required this.dropdownHeight,
@@ -72,9 +72,11 @@ class CustomSingleDropDown extends StatelessWidget {
       focusedBorderWidth: 2.0,
 
       // 선택된 데이터
-      selectedOptions: [
-        ValueItem(label: defaultValue, value: 0),
-      ],
+      selectedOptions: defaultValue == null
+          ? []
+          : [
+              ValueItem(label: defaultValue!, value: 0),
+            ],
       // disabledOptions: [
       //   ValueItem(label: '선택', value: 0),
       // ],
