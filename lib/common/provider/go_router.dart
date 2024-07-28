@@ -10,6 +10,9 @@ import '../../manufacturing/view/manufacturing_detail_screen.dart';
 import '../../manufacturing/view/request_completion_screen.dart';
 import '../../notification/view/notification_detail_screen.dart';
 import '../../notification/view/notification_screen.dart';
+import '../../order/view/create_order_screen.dart';
+import '../../order/view/order_detail_screen.dart';
+import '../../order/view/order_list_screen.dart';
 import '../../product/view/my_product_list_screen.dart';
 import '../../product/view/product_detail_screen.dart';
 import '../../product/view/product_screen.dart';
@@ -258,6 +261,29 @@ List<RouteBase> get routes => [
             builder: (context, state) {
               final id = state.pathParameters['id']!;
               return NotificationDetailScreen(id: id);
+            },
+          ),
+        ],
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/create_order',
+        name: CreateOrderScreen.routeName,
+        builder: (context, state) => CreateOrderScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/order_list',
+        name: OrderListScreen.routeName,
+        builder: (context, state) => OrderListScreen(),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: ':id',
+            name: OrderDetailScreen.routeName,
+            builder: (context, state) {
+              String id = state.pathParameters['id']!;
+              return OrderDetailScreen(id: id);
             },
           ),
         ],
