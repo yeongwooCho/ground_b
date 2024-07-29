@@ -54,7 +54,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       ),
       bottomNavigationBar: Hidable(
         controller: scrollController,
-        preferredWidgetSize: const Size.fromHeight(100),
+        preferredWidgetSize: const Size.fromHeight(68),
         child: SafeArea(
           bottom: true,
           child: Padding(

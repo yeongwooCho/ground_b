@@ -54,7 +54,7 @@ class _ProductDetailScreenState
       ),
       bottomNavigationBar: Hidable(
         controller: scrollController,
-        preferredWidgetSize: const Size.fromHeight(100),
+        preferredWidgetSize: const Size.fromHeight(68),
         child: SizedBox(
           width: double.infinity,
           child: DefaultBottomButton(
