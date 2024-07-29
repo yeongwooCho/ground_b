@@ -153,13 +153,13 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
             width: 120.0,
             child: Text(
               title,
-              style: MyTextStyle.bodyRegular,
+              style: MyTextStyle.descriptionRegular,
             ),
           ),
           Expanded(
             child: Text(
               description,
-              style: MyTextStyle.bodyRegular,
+              style: MyTextStyle.descriptionRegular,
               textAlign: TextAlign.end,
             ),
           ),
