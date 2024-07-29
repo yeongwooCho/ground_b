@@ -1,6 +1,8 @@
 class ImagePath {
   // logo, icon
   static const appIcon = "asset/img/logo/app_icon.png";
+  static const appIconTransparent = "asset/img/logo/app_icon_transparent.png";
+
   static const logo = "asset/img/logo/logo.png";
 
   // social_login button
